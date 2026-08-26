@@ -1,0 +1,13 @@
+# Person 1 - Audio transcription
+openai-whisper
+
+# Person 2 - Gemini scam detection
+google-generativeai
+
+# Person 3 - Semantic search over RBI rules (optional; app falls back to
+# keyword search if these aren't installed)
+langchain
+langchain-community
+chromadb
+sentence-transformers
+streamlit
