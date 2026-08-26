@@ -1,0 +1,44 @@
+{
+  "call_metadata": {
+    "caller_phone_number": "+919876543210",
+    "analysis_timestamp": "2026-08-26T14:10:04.297615+00:00"
+  },
+  "transcript": {
+    "clean_text": "hello sir this is sbi bank calling your a c will be blocked in hours please share the otp immediately to avoid suspension"
+  },
+  "ai_analysis": {
+    "translated_text": "hello sir this is sbi bank calling your a c will be blocked in hours please share the otp immediately to avoid suspension",
+    "is_likely_scam": true,
+    "risk_level": "high",
+    "scam_signals_found": [
+      "Caller asked for OTP",
+      "Threatened account blocking/suspension",
+      "Claims to be calling from a bank"
+    ],
+    "user_warning_message": "This call shows signs of a bank scam. Never share your OTP, PIN, or card details over the phone. Hang up and call your bank directly using the number on your card."
+  },
+  "security_check": {
+    "sms_text_analyzed": "Dear customer your KYC is pending update immediately at http://sbi-kyc-update.bit.ly or account will be suspended",
+    "url_analysis": {
+      "is_dangerous": true,
+      "flagged_urls": [
+        "http://sbi-kyc-update.bit.ly"
+      ],
+      "threat_details": [
+        "Insecure HTTP link (banks strictly use HTTPS): http://sbi-kyc-update.bit.ly",
+        "Uses a link-shortening service that hides the real destination: http://sbi-kyc-update.bit.ly",
+        "Contains phishing/urgency keyword: http://sbi-kyc-update.bit.ly"
+      ]
+    },
+    "phone_analysis": {
+      "is_known_scammer": true,
+      "report_count": 2
+    },
+    "matched_rbi_rules": [
+      "Banks will never threaten to freeze or block your account within a few hours as a pressure tactic; such urgency is a common scam technique."
+    ]
+  },
+  "final_verdict": {
+    "is_scam": true
+  }
+}
