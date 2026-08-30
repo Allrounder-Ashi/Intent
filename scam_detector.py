@@ -10,6 +10,8 @@ Person 2: AI Scam Detector (Brain Lead)
 
 import os
 import json
+from person3_security import search_rbi_rules  # NEW - reuse person3's existing RBI search, no duplicate logic
+
 
 GEMINI_PROMPT_TEMPLATE = """You are a fraud detection assistant analyzing a phone call transcript for an Indian cyber-fraud reporting platform.
 
@@ -18,8 +20,11 @@ The transcript may be in Hindi, English, or a mix (Hinglish). If it is not in En
 Call transcript:
 \"\"\"{transcript}\"\"\"
 
+Reference: a few RBI fraud-pattern descriptions that may be relevant (use these loosely to help pick the scam type, don't feel limited to only these):
+{rbi_hint}
+
 Do the following:
-1. Decide the scam type. Pick the closest match from: "Bank/KYC Impersonation", "OTP/UPI Fraud", "Digital Arrest / Police Impersonation", "Lottery or Prize Scam", "Job Scam", "Investment or Stock Tip Scam", "Loan App Scam", "Romance Scam", "Tech Support Scam", "Not a Scam", "Other".
+1. Decide the scam type. Pick the closest match from: "Bank/KYC Impersonation", "OTP/UPI Fraud", "Digital Arrest / Police Impersonation", "Lottery or Prize Scam", "Job Scam", "Investment or Stock Tip Scam", "Loan App Scam", "Romance Scam", "Tech Support Scam", "Not a Scam", "Other". If the reference material above clearly names a more specific real fraud pattern (e.g. "SIM Swap", "QR Code Scam", "Vishing"), use that instead.
 2. List the manipulation tactics used (e.g. urgency/time pressure, fear of arrest or account loss, fake authority/impersonation, greed/reward, isolation from family, requesting remote access).
 3. List the specific scam signals found in the text (quote or paraphrase the exact red flag).
 4. Give a risk level: "low", "medium", or "high".
@@ -159,7 +164,9 @@ def analyze_transcript_with_gemini(transcript, api_key=None):
         from google import genai
 
         client = genai.Client(api_key=api_key)
-        prompt = GEMINI_PROMPT_TEMPLATE.format(transcript=transcript)
+        rbi_lines = search_rbi_rules(transcript, k=3)  # NEW - person3's function, k=3 so Gemini gets a few options
+        rbi_hint = "\n".join(f"- {line}" for line in rbi_lines) if rbi_lines else "(none found)"  # NEW
+        prompt = GEMINI_PROMPT_TEMPLATE.format(transcript=transcript, rbi_hint=rbi_hint)  # CHANGED: added rbi_hint
         response = client.models.generate_content(
             model="gemini-3.6-flash",
             contents=prompt,
