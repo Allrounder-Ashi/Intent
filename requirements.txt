@@ -1,5 +1,8 @@
 # Person 1 - Audio transcription
 openai-whisper
+# Person 1 - Image OCR
+pytesseract
+pillow
 
 # Person 2 - Gemini scam detection
 google-generativeai
