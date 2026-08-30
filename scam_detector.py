@@ -156,12 +156,14 @@ def analyze_transcript_with_gemini(transcript, api_key=None):
         return _mock_gemini_response(transcript)
 
     try:
-        import google.generativeai as genai
+        from google import genai
 
-        genai.configure(api_key=api_key)
-        model = genai.GenerativeModel("gemini-1.5-flash")
+        client = genai.Client(api_key=api_key)
         prompt = GEMINI_PROMPT_TEMPLATE.format(transcript=transcript)
-        response = model.generate_content(prompt)
+        response = client.models.generate_content(
+            model="gemini-3.6-flash",
+            contents=prompt,
+        )
         raw_text = response.text.strip().replace("```json", "").replace("```", "").strip()
         result = json.loads(raw_text)
 
@@ -170,6 +172,8 @@ def analyze_transcript_with_gemini(transcript, api_key=None):
         result.setdefault("tactics_used", [])
         result.setdefault("confidence_score", 50)
         result.setdefault("summary", "")
+
+        print("[scam_detector] Used real Gemini API for this analysis.")
         return result
 
     except ImportError:
