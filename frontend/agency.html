@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>ProtectX — Agency Dashboard</title>
+<link rel="stylesheet" href="style.css" />
+</head>
+<body>
+<header class="topbar agency">
+  <h1>🏛️ ProtectX Agency Dashboard</h1>
+  <p>Investigate · Triage · Act</p>
+  <nav><a href="index.html">← Citizen Portal</a></nav>
+</header>
+
+<main class="container">
+
+  <!-- LOGIN -->
+  <section id="loginSection" class="card">
+    <h2>Agency Access</h2>
+    <div class="row">
+      <input id="agencyKey" type="password" placeholder="Agency access key" />
+      <button onclick="agencyLogin()">Enter</button>
+    </div>
+    <p class="muted small">Demo auth only — swap for real accounts before production use.</p>
+  </section>
+
+  <div id="dashboard" class="hidden">
+
+    <!-- STATS -->
+    <section class="card">
+      <h2>Dashboard Overview</h2>
+      <div id="statsBox" class="grid4"></div>
+    </section>
+
+    <!-- CASE LIST -->
+    <section class="card">
+      <h2>Case Management</h2>
+      <div class="row">
+        <select id="filterStatus">
+          <option value="">All statuses</option>
+          <option value="new">New</option>
+          <option value="investigating">Investigating</option>
+          <option value="verified">Verified</option>
+          <option value="resolved">Resolved</option>
+        </select>
+        <select id="filterRisk">
+          <option value="">All risk levels</option>
+          <option value="high">High</option>
+          <option value="medium">Medium</option>
+          <option value="low">Low</option>
+        </select>
+        <button onclick="loadCases()">Refresh</button>
+      </div>
+      <table id="casesTable">
+        <thead>
+          <tr><th>ID</th><th>Created</th><th>Phone</th><th>URL</th><th>Risk</th><th>Score</th><th>Status</th><th></th></tr>
+        </thead>
+        <tbody></tbody>
+      </table>
+    </section>
+
+    <!-- CASE DETAIL -->
+    <section id="caseDetailSection" class="card hidden">
+      <h2>Case Detail</h2>
+      <div id="caseDetailBox"></div>
+    </section>
+
+  </div>
+
+</main>
+
+<script src="app.js"></script>
+</body>
+</html>
