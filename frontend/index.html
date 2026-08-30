@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>ProtectX — Check &amp; Report Fraud</title>
+<link rel="stylesheet" href="style.css" />
+</head>
+<body>
+<header class="topbar">
+  <h1>🛡️ ProtectX</h1>
+  <p>Check a number/link · Report evidence · Get an instant risk assessment</p>
+  <nav><a href="agency.html">Agency Login →</a></nav>
+</header>
+
+<main class="container">
+
+  <!-- SEARCH -->
+  <section class="card">
+    <h2>1. Search</h2>
+    <p class="muted">Check a phone number, UPI ID, URL, or email against previous reports.</p>
+    <div class="row">
+      <input id="searchInput" type="text" placeholder="e.g. +919876543210 or scammer@okhdfcbank" />
+      <button onclick="doSearch()">Search</button>
+    </div>
+    <div id="searchResult" class="result-box hidden"></div>
+  </section>
+
+  <!-- REPORT -->
+  <section class="card">
+    <h2>2. Report &amp; Upload Evidence</h2>
+    <form id="reportForm">
+      <div class="grid2">
+        <label>Phone number
+          <input name="phone_number" type="text" placeholder="+91XXXXXXXXXX" />
+        </label>
+        <label>UPI ID
+          <input name="upi_id" type="text" placeholder="name@bank" />
+        </label>
+        <label>Suspicious URL
+          <input name="reported_url" type="text" placeholder="https://..." />
+        </label>
+        <label>Email
+          <input name="email" type="text" placeholder="scammer@example.com" />
+        </label>
+      </div>
+
+      <label>Call transcript (paste, or upload audio below)
+        <textarea name="call_transcript_text" rows="3" placeholder="Paste what the caller said..."></textarea>
+      </label>
+
+      <label>SMS / message text
+        <textarea name="sms_text" rows="3" placeholder="Paste the SMS/message..."></textarea>
+      </label>
+
+      <label>Other details
+        <textarea name="other_details" rows="2" placeholder="Transaction details, anything else relevant..."></textarea>
+      </label>
+
+      <div class="grid2">
+        <label>Call recording (mp3/wav)
+          <input name="audio" type="file" accept="audio/*" />
+        </label>
+        <label>Screenshots
+          <input name="screenshots" type="file" accept="image/*" multiple />
+        </label>
+      </div>
+
+      <button type="submit">🔎 Run Analysis</button>
+    </form>
+
+    <div id="reportLoading" class="hidden muted">Analyzing evidence… this can take a moment.</div>
+  </section>
+
+  <!-- RESULTS -->
+  <section id="resultsSection" class="card hidden">
+    <h2>3. Results</h2>
+    <div id="resultsBox"></div>
+  </section>
+
+</main>
+
+<script src="app.js"></script>
+</body>
+</html>
