@@ -1,0 +1,22 @@
+# Python
+__pycache__/
+*.pyc
+*.pyo
+venv/
+env/
+.venv/
+
+# Streamlit
+.streamlit/secrets.toml
+
+# Generated at runtime — don't commit these
+Transcript.txt
+submission.json
+scam_numbers.json
+protectx.db
+*.db
+
+# OS / editor
+.DS_Store
+.vscode/
+*.log
