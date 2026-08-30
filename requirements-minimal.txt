@@ -1,0 +1,3 @@
+# Fast install for just testing the Streamlit app with pasted text
+# (no audio upload, no live Gemini key needed — mock analyzer kicks in automatically)
+streamlit

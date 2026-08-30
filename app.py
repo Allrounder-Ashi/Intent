@@ -19,12 +19,49 @@ from person3_security import (
     check_scam_number,
 )
 
-st.set_page_config(page_title="Fraud & Phishing Detector", page_icon="🛡️", layout="wide")
+st.set_page_config(page_title="ProtectX — Check & Report Fraud", page_icon="🛡️", layout="wide")
 
-st.title("🛡️ AI Financial Fraud & Phishing Detection System")
-st.caption(
-    "Retrieval-Augmented Generation over RBI guidelines + Gemini scam analysis "
-    "+ phishing-link and scam-number detection."
+st.markdown(
+    """
+    <style>
+    :root {
+        --px-blue: #1d4ed8;
+        --px-green: #16a34a;
+        --px-amber: #d97706;
+        --px-red: #dc2626;
+    }
+    .px-topbar {
+        background: var(--px-blue);
+        color: white;
+        padding: 20px 24px;
+        border-radius: 12px;
+        margin-bottom: 20px;
+    }
+    .px-topbar h1 { margin: 0 0 4px 0; font-size: 26px; }
+    .px-topbar p { margin: 0; opacity: 0.9; font-size: 14px; }
+
+    div[data-testid="stMetric"] {
+        background: #ffffff;
+        border: 1px solid #e2e6ef;
+        border-radius: 10px;
+        padding: 10px;
+    }
+    .stButton>button, .stDownloadButton>button {
+        background: var(--px-blue) !important;
+        color: white !important;
+        border: none !important;
+        border-radius: 8px !important;
+        font-weight: 600 !important;
+    }
+    .stButton>button:hover, .stDownloadButton>button:hover { opacity: 0.92; }
+    </style>
+
+    <div class="px-topbar">
+        <h1>🛡️ ProtectX</h1>
+        <p>Check a number/link · Report evidence · Get an instant risk assessment</p>
+    </div>
+    """,
+    unsafe_allow_html=True,
 )
 
 tab_analyze, tab_report, tab_about = st.tabs(["🔍 Analyze", "🚩 Report a Scam Number", "ℹ️ About"])
@@ -94,7 +131,15 @@ with tab_analyze:
                 or person3_result["phone_analysis"]["is_known_scammer"]
             )
 
+            risk_level = str(person2_result.get("risk_level", "low")).lower()
+            badge_color = {"high": "#dc2626", "medium": "#d97706", "low": "#16a34a"}.get(risk_level, "#16a34a")
+
             st.divider()
+            st.markdown(
+                f"""<span style="background:{badge_color};color:white;padding:3px 12px;
+                border-radius:999px;font-size:12px;font-weight:700;">{risk_level.upper()}</span>""",
+                unsafe_allow_html=True,
+            )
             if is_scam:
                 st.error("⚠️ **This looks like a SCAM.** " + person2_result.get("user_warning_message", ""))
             else:
@@ -152,7 +197,7 @@ with tab_report:
         if st.button("🚩 Report this number", use_container_width=True):
             if report_number:
                 result = report_scam_number(report_number)
-                st.success(f"Reported {result['phone_number']}. Total reports: {result['total_reports']}")
+                st.success(f"Reported {result['identifier']}. Total reports: {result['total_reports']}")
             else:
                 st.warning("Enter a phone number first.")
     with colr2:
