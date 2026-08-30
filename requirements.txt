@@ -5,7 +5,7 @@ pytesseract
 pillow
 
 # Person 2 - Gemini scam detection
-google-generativeai
+google-genai
 
 # Person 3 - Semantic search over RBI rules (optional; app falls back to
 # keyword search if these aren't installed)
