@@ -476,7 +476,7 @@ else:
             agency_key = st.text_input("Agency access key", type="password", label_visibility="collapsed")
         with lcol2:
             enter_clicked = st.button("Enter", use_container_width=True)
-        st.markdown('<p class="px-muted small">Demo auth only — swap for real accounts before production use.</p>', unsafe_allow_html=True)
+        st.markdown('<p class="px-muted small">Demo auth only — swap for real accounts before production use.<br>Demo key: <b>protectx123</b></p>', unsafe_allow_html=True)
         if enter_clicked:
             if agency_key == AGENCY_ACCESS_CODE:
                 st.session_state.agency_logged_in = True
