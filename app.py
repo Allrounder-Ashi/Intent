@@ -334,7 +334,7 @@ if page == "🙋 Citizen Portal":
     # ---------------- 1. SEARCH ----------------
     st.markdown('<div class="px-card">', unsafe_allow_html=True)
     st.subheader("1. Search")
-    st.markdown('<p class="px-muted small">Demo auth only — swap for real accounts before production use.<br>Demo key: <b>protectx123</b></p>', unsafe_allow_html=True)
+    st.markdown('<p class="px-muted small">Demo auth only — swap for real accounts before production use.</p>', unsafe_allow_html=True)
     scol1, scol2 = st.columns([5, 1])
     with scol1:
         search_query = st.text_input(
